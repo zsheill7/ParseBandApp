@@ -7,23 +7,57 @@
 //
 
 import UIKit
+import Parse
 
 class BarcodeViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+
+    func displayAlert(title: String, message: String) {
+        
+        if #available(iOS 8.0, *) {
+            let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+            
+            alert.addAction((UIAlertAction(title: "OK", style: .Default, handler: { (action) -> Void in
+                
+                self.dismissViewControllerAnimated(true, completion: nil)
+                
+            })))
+            
+            self.presentViewController(alert, animated: true, completion: nil)
+        } else {
+            print("error")
+        }
+        
+        
+        
+    }
 
     
     var activityIndicator = UIActivityIndicatorView()
     let pickedBarcodeImage = UIImagePickerController()
+    
+    let pickedLockerImage = UIImagePickerController()
+    var user = PFUser.currentUser()
+    
+    
+  
+    
     @IBOutlet weak var barcodeImage: UIImageView!
+    @IBOutlet weak var lockerImage: UIImageView!
     
     
     @IBAction func takePhoto(sender: AnyObject) {
         
-        
-        
-        
+
         if #available(iOS 8.0, *) {
             let alertController = UIAlertController(title: "Choose Photo", message: "", preferredStyle: .Alert)
             let choosePhoto = UIAlertAction(title: "Choose from Photo Library", style: .Default) { (_) in
+                self.pickedBarcodeImage.delegate = self
+                self.pickedBarcodeImage.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+                self.pickedBarcodeImage.allowsEditing = false
+                
+                self.presentViewController(self.pickedBarcodeImage, animated: true, completion: nil)
+                
+                //barcodeImage.image = image
                 
             }
             let takePhoto = UIAlertAction(title: "Take Photo", style: .Default) { (_) in
@@ -34,44 +68,105 @@ class BarcodeViewController: UIViewController, UINavigationControllerDelegate, U
                 self.presentViewController(self.pickedBarcodeImage, animated: true, completion: nil)
             }
             let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (_) in }
+            
+            alertController.addAction(choosePhoto)
+            alertController.addAction(takePhoto)
+            alertController.addAction(cancelAction)
+            
+            presentViewController(alertController, animated: true, completion: nil)
         } else {
-            // Fallback on earlier versions
+            displayAlert( "Software Update Needed", message: "Please update to iOS8 or later or contact an admin")
         }
         
         
     }
-  
-    @IBAction func choosePhoto(sender: AnyObject) {
-        
-        /*let pickedBarcodeImage = UIImagePickerController()
-        pickedBarcodeImage.delegate = self
-        pickedBarcodeImage.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
-        pickedBarcodeImage.allowsEditing = false
-        
-        self.presentViewController(image, animated: true, completion: nil)*/
-
-    }
  
-    @IBOutlet weak var takePhotoButtonLabel: UIButton!
+    @IBAction func chooseLockerPhoto(sender: AnyObject) {
+        if #available(iOS 8.0, *) {
+            let alertController = UIAlertController(title: "Choose Photo", message: "", preferredStyle: .Alert)
+            let choosePhoto = UIAlertAction(title: "Choose from Photo Library", style: .Default) { (_) in
+                self.pickedLockerImage.delegate = self
+                self.pickedLockerImage.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+                self.pickedLockerImage.allowsEditing = false
+                
+                self.presentViewController(self.pickedLockerImage, animated: true, completion: nil)
+                
+                //barcodeImage.image = image
+                
+            }
+            let takePhoto = UIAlertAction(title: "Take Photo", style: .Default) { (_) in
+                self.pickedLockerImage.delegate = self
+                self.pickedLockerImage.sourceType = UIImagePickerControllerSourceType.Camera
+                self.pickedLockerImage.allowsEditing = false
+                
+                self.presentViewController(self.pickedLockerImage, animated: true, completion: nil)
+            }
+            let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (_) in }
+            
+            alertController.addAction(choosePhoto)
+            alertController.addAction(takePhoto)
+            alertController.addAction(cancelAction)
+            
+            presentViewController(alertController, animated: true, completion: nil)
+        } else {
+            displayAlert( "Software Update Needed", message: "Please update to iOS8 or later or contact an admin")
+        }
+    }
+
+ 
+    @IBOutlet weak var barcodeButton: UIButton!
+
+    @IBOutlet weak var lockerButton: UIButton!
     
-    @IBOutlet weak var choosePhotoButtonLabel: UIButton!
+
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
         self.dismissViewControllerAnimated(true, completion: nil)
         
   
-            //barcodeImage.image = pickedBarcodeImage
+        
+        
+        let imageData = UIImagePNGRepresentation(image)
+        if picker == pickedBarcodeImage {
+            if let imageFile = PFFile(name: "image.png", data: imageData!) {
+                user!.setObject(imageFile, forKey: "barcode")
+                
+            imageFile.getDataInBackgroundWithBlock({ (data, error) in
+                if let downloadedImage = UIImage(data: data!) {
+                    self.barcodeImage.image = downloadedImage
+                }
+            })
+            }
+        } else if picker == pickedLockerImage {
+            if let imageFile = PFFile(name: "image.png", data: imageData!) {
+                
+                user!.setObject(imageFile, forKey: "locker")
+                
+                imageFile.getDataInBackgroundWithBlock({ (data, error) in
+                    if let downloadedImage = UIImage(data: data!) {
+                        self.lockerImage.image = downloadedImage
+                    }
+                })
+            }
+                
+        }
         
         
         
-        takePhotoButtonLabel.setTitle("", forState: UIControlState.Normal)
-        choosePhotoButtonLabel.setTitle("", forState: UIControlState.Normal)
+        //takePhotoButtonLabel.setTitle("", forState: UIControlState.Normal)
+        //choosePhotoButtonLabel.setTitle("", forState: UIControlState.Normal)
     }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        /*if barcodeImage.image != nil {
+            barcodeImage.image = UIImage(named: "placeholder4")
+        }
+        if lockerImage.image != nil {
+            lockerImage.image = UIImage(named: "placeholder4")
+        }*/
         // Do any additional setup after loading the view.
     }
 

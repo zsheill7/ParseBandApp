@@ -34,7 +34,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             $0.server = "https://mihsband.herokuapp.com/parse"
         }
         Parse.initializeWithConfiguration(configuration)
+        
+        //UINavigationBar.appearance().barTintColor = UIColor.redColor()
+        
+        UINavigationBar.appearance().titleTextAttributes =
+            [NSForegroundColorAttributeName:UIColor.whiteColor()]
+        
+        UIBarButtonItem.appearance().tintColor = UIColor.grayColor()
+        let navBgImage:UIImage = UIImage(named: "maroonBg.jpg")!
+        UINavigationBar.appearance().setBackgroundImage(navBgImage, forBarMetrics:  .Default)
 
+        /*parse-dashboard --appId mihsbandGRHUILAEHFRALIWH4738568 --masterKey FUHIDLSHfnjdlsh48937596575789 --serverURL "https://mihsband.herokuapp.com/parse" --appName MIHS Band
+ */
         // ****************************************************************************
         // Uncomment and fill in with your Parse credentials:
         // Parse.setApplicationId("your_application_id", clientKey: "your_client_key")
@@ -59,8 +70,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // "content_available" was used to trigger a background push (introduced in iOS 7).
             // In that case, we skip tracking here to avoid double counting the app-open.
 
-            let preBackgroundPush = !application.respondsToSelector("backgroundRefreshStatus")
-            let oldPushHandlerOnly = !self.respondsToSelector("application:didReceiveRemoteNotification:fetchCompletionHandler:")
+            let preBackgroundPush = !application.respondsToSelector(Selector("backgroundRefreshStatus"))
+            let oldPushHandlerOnly = !self.respondsToSelector(#selector(UIApplicationDelegate.application(_:didReceiveRemoteNotification:fetchCompletionHandler:)))
             var noPushPayload = false;
             if let options = launchOptions {
                 noPushPayload = options[UIApplicationLaunchOptionsRemoteNotificationKey] != nil;

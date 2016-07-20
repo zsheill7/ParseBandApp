@@ -75,7 +75,7 @@ class BarcodeViewController: UIViewController, UINavigationControllerDelegate, U
             
             presentViewController(alertController, animated: true, completion: nil)
         } else {
-            displayAlert( "Software Update Needed", message: "Please update to iOS8 or later or contact an admin")
+            displayAlert( "Software Update Needed", message: "Please update to iOS8 or later or hggg contact an admin")
         }
         
         

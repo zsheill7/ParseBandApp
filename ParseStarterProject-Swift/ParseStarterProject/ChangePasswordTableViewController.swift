@@ -8,6 +8,7 @@
 
 import UIKit
 import Parse
+import Answers
 
 class ChangePasswordTableViewController: UITableViewController {
     
@@ -81,6 +82,23 @@ class ChangePasswordTableViewController: UITableViewController {
                 print("error")
             }
         }
+        
+        
+    }
+    
+    @IBOutlet weak var confirmButton: UIButton!
+    
+    override func viewDidLoad() {
+        confirmButton.addTarget(self, action: #selector(self.userActionPasswordChanged), forControlEvents: UIControlEvents.TouchUpInside)
+    }
+    
+    
+    func userActionPasswordChanged() {
+        
+        // TODO: Move this method and customize the name and parameters to track your key metrics
+        //       Use your own string attributes to track common values over time
+        //       Use your own number attributes to track median value over time
+        Answers.logCustomEventWithName("Password Changed", customAttributes: ["Category":"User Settings", "Date":NSDate()])
     }
     
     

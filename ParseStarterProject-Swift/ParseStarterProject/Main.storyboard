@@ -1651,6 +1651,7 @@
                         </connections>
                     </tableView>
                     <connections>
+                        <outlet property="confirmButton" destination="meY-10-jEr" id="DXQ-k1-x8O"/>
                         <outlet property="confirmPasswordField" destination="PPh-Zm-7NA" id="71M-D0-w9g"/>
                         <outlet property="newPasswordField" destination="0aR-JS-9yg" id="zdG-Jn-men"/>
                         <outlet property="oldPasswordField" destination="kKI-ZN-HRc" id="T5K-mv-1UM"/>

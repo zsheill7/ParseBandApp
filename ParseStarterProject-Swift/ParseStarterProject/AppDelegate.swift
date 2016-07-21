@@ -10,6 +10,8 @@
 import UIKit
 
 import Parse
+import Fabric
+import Answers
 
 // If you want to use any of the UI components, uncomment this line
 // import ParseUI
@@ -26,7 +28,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Enable storing and querying data from Local Datastore.
         // Remove this line if you don't want to use Local Datastore features or want to use cachePolicy.
+        Fabric.with([Answers.self])
+        
+
         Parse.enableLocalDatastore()
+        
         
         let configuration = ParseClientConfiguration {
             $0.applicationId = "mihsbandGRHUILAEHFRALIWH4738568"

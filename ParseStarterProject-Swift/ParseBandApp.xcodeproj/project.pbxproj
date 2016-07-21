@@ -27,6 +27,8 @@
 		C85079A41D306F82000BA862 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85079A01D306F82000BA862 /* LoginViewController.swift */; };
 		C85079AE1D307B1B000BA862 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C85079AD1D307B1B000BA862 /* Main.storyboard */; };
 		C85079B21D307B8F000BA862 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C85079B11D307B8F000BA862 /* Assets.xcassets */; };
+		C88F811C1D405AB90015BDC6 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C88F811A1D405AB90015BDC6 /* Fabric.framework */; };
+		C88F811D1D405AB90015BDC6 /* Answers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C88F811B1D405AB90015BDC6 /* Answers.framework */; };
 		C8C266D51D3DAB6C00574541 /* ChangePasswordTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8C266D41D3DAB6C00574541 /* ChangePasswordTableViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -55,6 +57,8 @@
 		C85079A01D306F82000BA862 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		C85079AD1D307B1B000BA862 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		C85079B11D307B8F000BA862 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../Resources/Assets.xcassets; sourceTree = "<group>"; };
+		C88F811A1D405AB90015BDC6 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = SOURCE_ROOT; };
+		C88F811B1D405AB90015BDC6 /* Answers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Answers.framework; sourceTree = SOURCE_ROOT; };
 		C8C266D41D3DAB6C00574541 /* ChangePasswordTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePasswordTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -63,6 +67,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C88F811D1D405AB90015BDC6 /* Answers.framework in Frameworks */,
+				C88F811C1D405AB90015BDC6 /* Fabric.framework in Frameworks */,
 				81BA817F1A49E0F000E65899 /* libstdc++.6.dylib in Frameworks */,
 				81BA817B1A49E0E500E65899 /* SystemConfiguration.framework in Frameworks */,
 				81BA81791A49E0DB00E65899 /* AudioToolbox.framework in Frameworks */,
@@ -119,6 +125,8 @@
 				C802EE3C1D3D630800110415 /* SettingsInstrumentsTableViewController.swift */,
 				C802EE3E1D3D670F00110415 /* SettingsTableViewController.swift */,
 				C8C266D41D3DAB6C00574541 /* ChangePasswordTableViewController.swift */,
+				C88F811A1D405AB90015BDC6 /* Fabric.framework */,
+				C88F811B1D405AB90015BDC6 /* Answers.framework */,
 			);
 			path = ParseStarterProject;
 			sourceTree = "<group>";
@@ -156,6 +164,7 @@
 				81BA81411A49DA1800E65899 /* Sources */,
 				81BA81421A49DA1800E65899 /* Frameworks */,
 				81BA81431A49DA1800E65899 /* Resources */,
+				C88F81191D4059870015BDC6 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -219,6 +228,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		C88F81191D4059870015BDC6 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Fabric.framework/run 9a481d1689708bda50e5eee8befae62329b40faa 5d699cc7207e2a83661616386912734054857c0454f446ccb16c04aa9b21e830";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		81BA81411A49DA1800E65899 /* Sources */ = {
